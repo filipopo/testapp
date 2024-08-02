@@ -1,0 +1,60 @@
+name: CI
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+
+      - name: Install test dependencies
+        run: pip install flake8
+
+      - name: Lint code
+        run: flake8 app
+
+      - name: Install app dependencies
+        run: pip install -r requirements.txt
+
+      #- name: Run tests
+      #  run: pytest
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Azure Container Registry
+        uses: azure/docker-login@v2
+        with:
+          login-server: filiptestapp.azurecr.io
+          username: ${{ secrets.AZURE_ACR_USERNAME }}
+          password: ${{ secrets.AZURE_ACR_PASSWORD }}
+
+      - name: Build and push Docker image
+        run:
+          docker build -t filiptestapp.azurecr.io/mycontainer:latest -f app/Dockerfile app
+          docker push filiptestapp.azurecr.io/mycontainer:latest
+  terraform-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init for validation
+        run: terraform init -backend=false
+        working-directory: terraform
+
+      - name: Terraform lint
+        run:
+          terraform fmt -check -recursive
+          #terraform validate
