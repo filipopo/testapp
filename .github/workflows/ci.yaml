@@ -39,7 +39,7 @@ jobs:
           password: ${{ secrets.AZURE_ACR_PASSWORD }}
 
       - name: Build and push Docker image
-        run:
+        run: |
           docker build -t filiptestapp.azurecr.io/mycontainer:latest app
           docker push filiptestapp.azurecr.io/mycontainer:latest
   terraform-lint:
@@ -55,6 +55,6 @@ jobs:
         working-directory: terraform
 
       - name: Terraform lint
-        run:
+        run: |
           terraform fmt -check -recursive
-          #terraform validate
+        #terraform validate
