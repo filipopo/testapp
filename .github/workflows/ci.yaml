@@ -58,5 +58,6 @@ jobs:
 
       - name: Terraform lint
         run: |
-          terraform fmt -check -recursive
-        #terraform validate
+          terraform fmt -check
+          terraform validate
+        working-directory: terraform

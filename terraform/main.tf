@@ -1,31 +1,36 @@
 resource "azurerm_resource_group" "aci" {
-  name     = "aci-rg"
-  location = "eastus"
+  name     = var.resource_group_name
+  location = var.location
 }
 
 resource "azurerm_container_registry" "aci" {
-  name                     = "myacr"
+  name                     = var.container_registry
   resource_group_name      = azurerm_resource_group.aci.name
   location                 = azurerm_resource_group.aci.location
   sku                      = "Basic"
   admin_enabled            = true
-  georeplication_locations = ["eastus2"]
 }
 
 resource "azurerm_container_group" "aci" {
-  name                = "mycontainergroup"
+  name                = var.container_group_name
   location            = azurerm_resource_group.aci.location
   resource_group_name = azurerm_resource_group.aci.name
-  os_type             = "Linux"
+  os_type             = var.os_type
+
+  image_registry_credential {
+    server   = "${var.container_registry}.azurecr.io"
+    username = var.client_id
+    password = var.client_secret
+  }
 
   container {
     name   = var.container_name
-    image  = var.image_name
+    image  = "${var.container_registry}.azurecr.io/${var.image_name}:latest"
     cpu    = var.cpu_core_number
     memory = var.memory_size
 
     ports {
-      port     = 80
+      port     = var.port_number
       protocol = "TCP"
     }
   }
