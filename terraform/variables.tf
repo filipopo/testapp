@@ -12,7 +12,7 @@ variable "tenant_id" {
 
 variable "container_registry" {
   default     = "filiptestapp"
-  description = "value"
+  description = "Container registry"
   type        = string
 }
 
