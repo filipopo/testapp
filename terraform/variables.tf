@@ -35,7 +35,7 @@ variable "cpu_core_number" {
 }
 
 variable "memory_size" {
-  default     = 1.5
+  default     = 0.5
   description = "Memory size in GB"
   type        = number
 }
