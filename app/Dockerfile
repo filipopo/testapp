@@ -2,7 +2,7 @@ FROM python:3.12
 
 WORKDIR /code
 
-COPY main.py ./app/
+COPY main.py test_main.py __init__.py ./app/
 
 COPY requirements.txt .
 
