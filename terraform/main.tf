@@ -25,7 +25,7 @@ resource "azurerm_container_group" "aci" {
 
   container {
     name   = local.container_name
-    image  = "${local.image_registry}/${local.image_name}:${image_tag}"
+    image  = "${local.image_registry}/${local.image_name}:${var.image_tag}"
     cpu    = var.cpu_core_number
     memory = var.memory_size
 
