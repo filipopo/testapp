@@ -10,45 +10,9 @@ variable "client_secret" {
 variable "tenant_id" {
 }
 
-variable "container_registry" {
-  default     = "filiptestapp"
-  description = "Container registry"
-  type        = string
-}
-
-variable "container_name" {
-  default     = "mycontainer"
-  description = "Name of the container"
-  type        = string
-}
-
-variable "image_name" {
-  default     = "mycontainer"
-  description = "Name of the image"
-  type        = string
-}
-
-variable "cpu_core_number" {
-  default     = 1
-  description = "Number of CPU cores"
-  type        = number
-}
-
-variable "memory_size" {
-  default     = 0.5
-  description = "Memory size in GB"
-  type        = number
-}
-
-variable "container_group_name" {
-  default     = "mycontainergroup"
-  description = "The name of the container group"
-  type        = string
-}
-
-variable "resource_group_name" {
-  default     = "testapp"
-  description = "The name of the resource group"
+variable "environment" {
+  default     = "dev-testapp"
+  description = "Prefix for resource names"
   type        = string
 }
 
@@ -64,8 +28,35 @@ variable "os_type" {
   type        = string
 }
 
+variable "image_tag" {
+  default     = "latest"
+  description = "The tag of the docker image"
+  type        = string
+}
+
+variable "cpu_core_number" {
+  default     = 1
+  description = "Number of CPU cores"
+  type        = number
+}
+
+variable "memory_size" {
+  default     = 0.5
+  description = "Memory size in GB"
+  type        = number
+}
+
 variable "port_number" {
   default     = 80
   description = "A public port for the container"
   type        = number
+}
+
+locals {
+  resource_group_name  = "${var.environment}-resource_group"
+  container_registry   = "${var.environment}-registry"
+  container_group_name = "${var.environment}-container_group"
+  container_name       = "${var.environment}-container"
+  image_name           = "${var.environment}-image"
+  image_registry       = "${local.container_registry}.azurecr.io"
 }

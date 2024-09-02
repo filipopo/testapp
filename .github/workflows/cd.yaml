@@ -1,16 +1,24 @@
 name: CD
+
 on:
   push:
     branches:
       - main
+
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [dev-filiptest]
+        location: [westeurope]
+
     steps:
       - uses: actions/checkout@v4
 
@@ -29,3 +37,6 @@ jobs:
           TF_VAR_client_id: ${{ env.ARM_CLIENT_ID }}
           TF_VAR_client_secret: ${{ env.ARM_CLIENT_SECRET }}
           TF_VAR_tenant_id: ${{ env.ARM_TENANT_ID }}
+          TF_VAR_environment: ${{ matrix.environment }}
+          TF_VAR_location: ${{ matrix.location }}
+          TF_VAR_image_tag: ${{ env.IMAGE_TAG }}
