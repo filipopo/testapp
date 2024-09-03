@@ -5,4 +5,5 @@ subscription_id = "x"
 client_id       = "y"
 client_secret   = "z"
 tenant_id       = "a"
+image_tag       = "b"
 ```
