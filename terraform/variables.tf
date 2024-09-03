@@ -22,15 +22,21 @@ variable "location" {
   type        = string
 }
 
-variable "os_type" {
-  default     = "Linux"
-  description = "The OS for the container group. Allowed values are Linux and Windows"
+variable "container_registry" {
+  default     = "filiptestapp"
+  description = "Container registry"
   type        = string
 }
 
 variable "image_tag" {
   default     = "latest"
   description = "The tag of the docker image"
+  type        = string
+}
+
+variable "os_type" {
+  default     = "Linux"
+  description = "The OS for the container group. Allowed values are Linux and Windows"
   type        = string
 }
 
@@ -53,10 +59,9 @@ variable "port_number" {
 }
 
 locals {
-  resource_group_name  = "${var.environment}-resource_group"
-  container_registry   = "${var.environment}-registry"
-  container_group_name = "${var.environment}-container_group"
+  resource_group_name  = "${var.environment}-resource-group"
+  container_group_name = "${var.environment}-container-group"
   container_name       = "${var.environment}-container"
   image_name           = "${var.environment}-image"
-  image_registry       = "${local.container_registry}.azurecr.io"
+  image_registry       = "${var.container_registry}.azurecr.io"
 }

@@ -4,7 +4,7 @@ resource "azurerm_resource_group" "aci" {
 }
 
 resource "azurerm_container_registry" "aci" {
-  name                = local.container_registry
+  name                = var.container_registry
   resource_group_name = azurerm_resource_group.aci.name
   location            = azurerm_resource_group.aci.location
   sku                 = "Basic"

@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        environment: [dev-filiptest]
+        environment: [dev-testapp]
         location: [westeurope]
 
     steps:
