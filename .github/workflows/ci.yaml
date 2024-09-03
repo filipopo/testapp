@@ -11,12 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Debug IMAGE_TAG
-        run: echo "IMAGE_TAG is $CONTAINER_IMAGE_TAG"
-
-      - name: Debug IMAGE_TAG 2
-        run: echo "IMAGE_TAG is ${{ env.CONTAINER_IMAGE_TAG }}"
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
