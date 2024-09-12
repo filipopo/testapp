@@ -66,11 +66,6 @@ jobs:
         with:
           name: tfplan
           path: terraform/
-      
-      - name: IDK
-        run: |
-          ls -l .
-          ls -l terraform/
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
