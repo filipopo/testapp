@@ -15,17 +15,7 @@ env:
   ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
 jobs:
-  fetch-tags:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set tags as output
-        id: get-tags
-        run: echo "tags=$(cat image_tags.txt | paste -sd ',')" >> $GITHUB_OUTPUT
-
   prepare-deploy:
-    needs: fetch-tags
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -75,7 +65,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: tfplan
-          path: terraform/tfplan
+          path: terraform/
+      
+      - name: IDK
+        run: |
+          ls -l .
+          ls -l terraform/
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
