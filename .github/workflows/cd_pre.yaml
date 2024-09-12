@@ -11,7 +11,10 @@ on:
         required: true
         type: choice
         # This will be populated dynamically
-        options: ${{ steps.get-tags.outputs.tags }}
+        #options: ${{ steps.get-tags.outputs.tags }}
+        options:
+          - 10838080734
+          - latest
 
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -30,7 +33,7 @@ jobs:
 
       - name: Set tags as output
         id: get-tags
-        run: echo "tags=$(cat image_tags.txt | paste -sd ',')" >> $GITHUB_OUTPUT
+        run: echo "tags=$(cat image_tags.txt | paste -sd ',')" #>> $GITHUB_OUTPUT
 
   deploy:
     needs: fetch-tags
