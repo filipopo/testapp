@@ -5,8 +5,8 @@ resource "azurerm_resource_group" "aci" {
 
 resource "azurerm_container_registry" "aci" {
   name                = var.container_registry
-  resource_group_name = azurerm_resource_group.aci.name
-  location            = azurerm_resource_group.aci.location
+  resource_group_name = "safe-resource-group"
+  location            = "westeurope"
   sku                 = "Basic"
   admin_enabled       = true
 }

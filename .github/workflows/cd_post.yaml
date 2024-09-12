@@ -24,6 +24,8 @@ jobs:
             const { createApproval } = require('@actions/core');
             await createApproval('Waiting for approval to apply Terraform plan.');
 
+      - uses: actions/checkout@v4
+
       - name: Download plan artifact
         uses: actions/download-artifact@v4
         with:

@@ -63,7 +63,7 @@ jobs:
           TF_VAR_image_tag: ${{ github.event.inputs.image_tag }}
 
       - name: Show Terraform plan
-        run: echo terraform show tfplan
+        run: terraform show tfplan
         working-directory: terraform
 
       - name: Upload plan as artifact
