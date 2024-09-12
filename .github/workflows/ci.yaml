@@ -52,17 +52,8 @@ jobs:
           docker push filiptestapp.azurecr.io/${{ matrix.environment }}-image:${GITHUB_RUN_ID}
 
       - name: Save the IMAGE_TAG
-        run: | 
-          echo "IMAGE_TAG=${GITHUB_RUN_ID}"
-          echo "${GITHUB_RUN_ID}" >> image_tags.txt
+        run: echo "IMAGE_TAG=${GITHUB_RUN_ID}"
 
-      - name: Commit updated image tags
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add image_tags.txt
-          git commit -m "Add new image tag ${GITHUB_RUN_ID}"
-          git push
   terraform-lint:
     runs-on: ubuntu-latest
     steps:

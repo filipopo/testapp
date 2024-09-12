@@ -4,11 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       image_tag:
-        description: 'Select the image tag for deployment'
+        description: 'The image tag for deployment'
         required: true
-        type: choice
-        # This will be populated dynamically
-        options: ${{ steps.get-tags.outputs.tags }}
+        type: string
 
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
