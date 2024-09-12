@@ -8,7 +8,8 @@ on:
         required: true
         type: choice
         # This will be populated dynamically
-        options: ${{ steps.get-tags.outputs.tags }}
+        #options: ${{ steps.get-tags.outputs.tags }}
+        options: 10838690130,10838823084,10838981973
 
 env:
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -35,6 +36,9 @@ jobs:
         location: [westeurope]
 
     steps:
+      - name: ah
+        run: echo ${{ steps.get-tags.outputs.tags }}
+
       - uses: actions/checkout@v4
 
       - name: Set up Terraform
