@@ -56,11 +56,13 @@ jobs:
           echo "IMAGE_TAG=${GITHUB_RUN_ID}"
           echo "${GITHUB_RUN_ID}" >> image_tags.txt
 
-      - name: Upload image tags as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: image-tags
-          path: image_tags.txt
+      - name: Commit updated image tags
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add image_tags.txt
+          git commit -m "Add new image tag ${GITHUB_RUN_ID}"
+          git push
   terraform-lint:
     runs-on: ubuntu-latest
     steps:
