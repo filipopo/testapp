@@ -72,6 +72,11 @@ jobs:
           terraform validate
         working-directory: terraform
 
+      - name: Terraform lint
+        run: |
+          curl -s https://raw.githubusercontent.com/terraform-linters/tflint/master/install_linux.sh | bash
+          tflint --chdir=terraform/
+
       - name: Run Terraform Sec
         run: |
           curl -s https://raw.githubusercontent.com/aquasecurity/tfsec/master/scripts/install_linux.sh | bash
